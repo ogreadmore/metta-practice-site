@@ -738,14 +738,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .faq details[open] summary::after { content: "–"; }
 .faq details p { max-width: 68ch; color: var(--body); }
 
-.contact-section {
-  overflow: hidden;
-  border-top: 1px solid var(--line);
-  background:
-    radial-gradient(42% 72% at 4% 20%, rgba(255, 45, 170, .08), transparent 68%),
-    radial-gradient(42% 72% at 96% 80%, rgba(0, 212, 255, .08), transparent 68%),
-    var(--white);
-}
 .contact-grid {
   display: grid;
   grid-template-columns: minmax(0, .9fr) minmax(420px, .72fr);
@@ -843,15 +835,28 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .close .actions { justify-content: center; }
 
 footer {
-  padding: 3.8rem 0;
+  padding: 0;
   color: rgba(255, 255, 255, .68);
   background: var(--ink);
 }
+.footer-contact {
+  padding: clamp(4.5rem, 9vw, 7.5rem) 0;
+  background:
+    radial-gradient(42% 72% at 4% 20%, rgba(255, 45, 170, .14), transparent 68%),
+    radial-gradient(42% 72% at 96% 80%, rgba(0, 212, 255, .12), transparent 68%);
+}
+.footer-contact .contact-copy h2 { color: var(--white); }
+.footer-contact .contact-copy > p:not(.eyebrow) { color: rgba(255, 255, 255, .72); }
+.footer-contact .contact-copy .contact-boundary { color: rgba(255, 255, 255, .48); }
 .footer-grid, .frow {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 2rem;
+}
+.footer-bottom {
+  padding: 2.6rem 0 3.2rem;
+  border-top: 1px solid rgba(255, 255, 255, .14);
 }
 footer b { color: var(--white); }
 footer p { margin-bottom: 0; }
