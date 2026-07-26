@@ -721,14 +721,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 }
 .micro { margin: .85rem 0 0; color: var(--grey); font-size: .75rem; line-height: 1.45; text-align: center; }
 
-.about { background: var(--white); }
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(3rem, 9vw, 9rem);
-}
-.about-grid > div:last-child { padding-top: 1rem; color: var(--body); font-size: 1.08rem; }
-
 .faq { background: var(--cream); }
 .faq h2 { margin-bottom: 2.8rem; }
 .faq details { border-top: 1px solid var(--line); }
@@ -949,7 +941,7 @@ footer a { color: rgba(255, 255, 255, .72); }
   .nav nav > a:not(.button), .masthead nav > a:not(.button) { display: none; }
   .mobile-menu { display: block; }
   .nav nav, .masthead nav { gap: .7rem; }
-  .hero-grid, .intro-video-head-grid, .intro-video-body, .mechanism-head, .mechanism-synthesis, .offer-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .hero-grid, .intro-video-head-grid, .intro-video-body, .mechanism-head, .mechanism-synthesis, .offer-grid, .contact-grid { grid-template-columns: 1fr; }
   .hero-grid { gap: 2.5rem; }
   .hero-copy { order: 1; }
   .cover-stage { order: 2; width: min(100%, 500px); margin-inline: auto; }
