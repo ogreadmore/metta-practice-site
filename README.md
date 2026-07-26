@@ -11,9 +11,10 @@ pages in ordinary browsing and checks the agreed password's SHA-256 hash in
 the browser, but a determined visitor can bypass it or download public files
 directly.
 
-Do not place the ebook, audiobook masters, customer files, API keys, checkout
-secrets, or any other private material in this directory. Use server-side
-authentication if genuine confidentiality is required.
+Do not place API keys, checkout secrets, or genuinely private material in this
+directory. The free library intentionally links to public early-access ebook
+and audiobook files. Its password is only a casual sharing gate; anyone with a
+direct asset URL can access those files.
 
 ## Preview safeguards
 

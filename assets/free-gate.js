@@ -86,7 +86,7 @@
       '<div class="metta-preview-panel">' +
         '<div class="metta-preview-mark" aria-hidden="true"></div>' +
         '<h1 id="metta-preview-title">Metta<br><span>Practice</span></h1>' +
-        '<p class="metta-preview-intro">Taylor shared this private library with you. Enter the password to download the book.</p>' +
+        '<p class="metta-preview-intro">Taylor shared this private library with you. Enter the password to read or listen to the complete book.</p>' +
         '<form id="metta-preview-form" novalidate>' +
           '<label for="metta-preview-password">Library password</label>' +
           '<input id="metta-preview-password" type="password" autocomplete="current-password" required>' +
