@@ -239,6 +239,7 @@ button { font: inherit; }
   grid-template-columns: repeat(2, 1fr);
   border-top: 1px solid var(--free-line);
 }
+.free-audio-download { grid-column: 1 / -1; }
 .free-early-access {
   display: grid;
   grid-template-columns: minmax(180px, .35fr) minmax(0, 1fr);
