@@ -1,57 +1,27 @@
-# Metta Practice GitHub Pages preview
+# Metta Practice public site
 
-This directory is an isolated, static preview copied from the authoritative
-marketing source in `../site`. It does not modify that source.
+Static GitHub Pages site for [mettapractice.com](https://mettapractice.com/).
 
-## Important security limitation
+The complete first edition is public and ungated in HTML, PDF, EPUB, and
+digitally narrated audiobook formats. The guided meditation library is also
+free. Reading, listening, and downloads require no signup or payment.
 
-GitHub Pages publishes every file in this directory to the public internet.
-The password screen is therefore only a casual review gate: it conceals the
-pages in ordinary browsing and checks the agreed password's SHA-256 hash in
-the browser, but a determined visitor can bypass it or download public files
-directly.
-
-Do not place API keys, checkout secrets, or genuinely private material in this
-directory. The free library intentionally links to public early-access ebook
-and audiobook files. Its password is only a casual sharing gate; anyone with a
-direct asset URL can access those files.
-
-## Preview safeguards
-
-- Every HTML page carries `noindex`, `nofollow`, `noarchive`, `nosnippet`, and
-  `noimageindex` directives.
-- `robots.txt` disallows all crawling.
-- Checkout controls are disabled until the real Lemon Squeezy URL and product
-  files have final approval.
-- The rejected audiobook sample is omitted.
-- The low-glare production cover uses the original pink-violet-cyan brand
-  colors as restrained accents rather than a full-bleed neon field.
-- Access lasts for the current browser tab/session. The small “Lock” control
-  clears it.
-
-## Local validation
-
-Serve this directory over HTTP; Web Crypto is not available from every
-`file://` context.
-
-```sh
-python3 -m http.server 8766 --directory site-pages
-```
-
-Open `http://127.0.0.1:8766/`. An incorrect password must remain locked; the
-agreed preview password must reveal the site; reloading must preserve access
-in the same tab; and “Lock” must return to the password screen.
-
-## Deployment record
+## Publishing
 
 - Repository: `ogreadmore/metta-practice-site`
 - Pages source: `main` at `/`
 - Canonical domain: `https://mettapractice.com/`
-- HTTPS enforcement: enabled
-- Apex DNS: GitHub Pages' four official `185.199.108-111.153` A records
-- `www`: CNAME to `ogreadmore.github.io.`
-- Account-level domain verification: keep the GoDaddy TXT record requested by
-  GitHub for the `ogreadmore` account
+- DNS provider: GoDaddy
 
-GoDaddy remains the DNS provider only. Do not restore the retired GoDaddy
-website A records while GitHub Pages is the active host.
+Do not add API keys, checkout secrets, or private review artifacts. Donation
+support may be connected to Stripe later, but free access must remain
+independent of any donation flow.
+
+## Local validation
+
+```sh
+python3 -m http.server 8766
+```
+
+Open `http://127.0.0.1:8766/` and verify the complete reader, every direct
+download, and every audio player at desktop and mobile widths.
