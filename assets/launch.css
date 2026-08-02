@@ -377,9 +377,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 }
 .intro-video-head-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(260px, .65fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
   align-items: end;
-  gap: clamp(2.5rem, 7vw, 7rem);
+  gap: clamp(2.5rem, 4.5vw, 4.5rem);
 }
 .intro-video-head h2 {
   max-width: 12ch;
@@ -388,7 +388,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   line-height: .88;
 }
 .intro-video-lede {
-  max-width: 29ch;
+  max-width: 40ch;
   margin: 0 0 .4rem;
   color: var(--body);
   font-size: clamp(1.18rem, 1.8vw, 1.5rem);
@@ -396,9 +396,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 }
 .intro-video-body {
   display: grid;
-  grid-template-columns: minmax(260px, 370px) minmax(0, 1fr);
+  grid-template-columns: minmax(320px, 460px) minmax(0, 1fr);
   align-items: center;
-  gap: clamp(3rem, 8vw, 8rem);
+  gap: clamp(3rem, 6vw, 6rem);
   padding-top: clamp(3rem, 5vw, 4.5rem);
 }
 .intro-video-frame {
@@ -430,7 +430,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   object-position: center 28%;
 }
 .intro-video-story {
-  max-width: 720px;
+  max-width: 780px;
   color: var(--body);
 }
 .intro-video-story h3 {
@@ -441,7 +441,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   line-height: .94;
 }
 .intro-video-story > p:not(.intro-video-bio-label) {
-  max-width: 58ch;
+  max-width: 66ch;
   margin-bottom: 1rem;
   font-size: clamp(1rem, 1.35vw, 1.15rem);
   line-height: 1.58;
@@ -1229,20 +1229,24 @@ footer a { color: rgba(255, 255, 255, .72); }
 .evidence-grid strong { display: block; margin: .4rem 0; font-size: 1.45rem; letter-spacing: -.04em; }
 .evidence-grid span { color: var(--grey); font-size: .82rem; }
 
-@media (max-width: 980px) {
-  .nav nav > a:not(.button), .masthead nav > a:not(.button) { display: none; }
-  .mobile-menu { display: block; }
-  .nav nav, .masthead nav { gap: .7rem; }
-  .hero-grid, .intro-video-head-grid, .intro-video-body, .mechanism-head, .mechanism-synthesis, .offer-grid, .contact-grid { grid-template-columns: 1fr; }
-  .hero-grid { gap: 2.5rem; }
-  .hero-copy { order: 1; }
-  .cover-stage { order: 2; width: min(100%, 500px); margin-inline: auto; }
+@media (max-width: 1100px) {
+  .intro-video-head-grid, .intro-video-body { grid-template-columns: 1fr; }
   .intro-video-head-grid { gap: 1.5rem; }
   .intro-video-head h2 { max-width: 11ch; }
   .intro-video-lede { max-width: 40ch; }
   .intro-video-body { gap: 2.5rem; }
-  .intro-video-frame { width: min(100%, 420px); margin-inline: auto; }
-  .intro-video-story { max-width: 680px; margin-inline: auto; }
+  .intro-video-frame { width: min(100%, 460px); margin-inline: auto; }
+  .intro-video-story { max-width: 760px; margin-inline: auto; }
+}
+
+@media (max-width: 980px) {
+  .nav nav > a:not(.button), .masthead nav > a:not(.button) { display: none; }
+  .mobile-menu { display: block; }
+  .nav nav, .masthead nav { gap: .7rem; }
+  .hero-grid, .mechanism-head, .mechanism-synthesis, .offer-grid, .contact-grid { grid-template-columns: 1fr; }
+  .hero-grid { gap: 2.5rem; }
+  .hero-copy { order: 1; }
+  .cover-stage { order: 2; width: min(100%, 500px); margin-inline: auto; }
   .proof-rail { grid-template-columns: repeat(2, 1fr); }
   .benefit-grid { grid-template-columns: repeat(2, 1fr); }
   .mechanism-proof-grid { grid-template-columns: 1fr; }
