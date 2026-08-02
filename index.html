@@ -70,14 +70,14 @@
   </form>
   <div class="welcome-dialog-body">
     <p class="eyebrow">Welcome · everything is free</p>
-    <h2 id="welcome-title">Thank you for finding Metta Practice.</h2>
-    <p>The complete book, audiobook, and guided meditations are free—no signup or payment required. If you want help with the practice, send me a note. I’d be glad to help.</p>
-    <p>I’m sharing this edition because I want to learn what actually happens when people use it. If you read or practice, I’d be grateful for an honest private review: what helped, what didn’t, what you tried, and what changed.</p>
+    <h2 id="welcome-title">Thanks for being here.</h2>
+    <p>The complete book, audiobook, and guided meditations are free—no signup required.</p>
+    <p>If Metta Practice helps you, I’d be grateful for a short review about what you tried and what changed. Your experience could help someone else discover the practice. I’ll always ask your permission before sharing your words publicly.</p>
     <div class="welcome-dialog-actions">
-      <a class="button" href="read/" data-welcome-action>Read the free book</a>
-      <a class="button secondary" href="#contact" data-welcome-action>Share private feedback</a>
+      <a class="button" href="read/" data-welcome-action>Explore Metta Practice</a>
+      <a class="button secondary" href="#contact" data-welcome-action>Leave a review</a>
     </div>
-    <p class="welcome-dialog-note">No need to be positive. No public comments. No mailing list.</p>
+    <p class="welcome-dialog-note">Questions? I’m always happy to help.</p>
   </div>
 </dialog>
 
@@ -486,7 +486,7 @@
 
   var welcomeDialog = document.getElementById('welcome-dialog');
   if (welcomeDialog && typeof welcomeDialog.showModal === 'function') {
-    var welcomeStorageKey = 'metta-welcome-review-20260802';
+    var welcomeStorageKey = 'metta-welcome-review-20260802b';
     var welcomeShown = false;
     var welcomeSeen = false;
 
