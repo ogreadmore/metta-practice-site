@@ -45,7 +45,7 @@
     <a href="#method">How it works</a>
     <a href="#science">Evidence</a>
     <a href="#free">Read free</a>
-    <a href="#contact">Feedback</a>
+    <a href="#contact">Reviews</a>
     <a href="#story">About</a>
     <a class="button small nav-buy" href="#free"><span class="nav-buy-full">Get the book — free</span><span class="nav-buy-short">Free book</span></a>
     <details class="mobile-menu">
@@ -57,7 +57,7 @@
         <a href="read/">Read the complete book</a>
         <a href="#free">Free downloads</a>
         <a href="#guided-meditations">Guided meditations</a>
-        <a href="#contact">Private feedback</a>
+        <a href="#contact">Reviews</a>
         <a href="#story">About Taylor</a>
       </div>
     </details>
@@ -432,25 +432,25 @@
   <section class="footer-contact" aria-labelledby="contact-title">
     <div class="shell contact-grid">
       <div class="contact-copy">
-        <p class="eyebrow">Questions + private feedback</p>
-        <h2 id="contact-title">Tell me what happened when you tried it.</h2>
-        <p>If you read the book or try a practice, I’d value an honest private review: what you practiced, experienced, disliked, misunderstood, or changed. It does not need to be positive.</p>
-        <div class="feedback-request"><strong>Your experience is the useful part.</strong><span>Specific criticism, confusion, and things that did not work are every bit as welcome as praise.</span></div>
-        <p class="contact-boundary">Questions are welcome too—I read every message and reply when I can. This is not medical, mental-health, or crisis care.</p>
+        <p class="eyebrow">Reviews + questions</p>
+        <h2 id="contact-title">Tell me what Metta Practice did for you.</h2>
+        <p>If you read the book or try a practice, I’d love a short, honest review: what you tried, what changed, and what stayed with you. Your experience could help other people discover the book.</p>
+        <div class="feedback-request"><strong>Your experience is useful.</strong><span>Specific observations, suggestions, and criticism are every bit as welcome as praise.</span></div>
+        <p class="contact-boundary">Questions are welcome too—I read every message and reply when I can. If I’d like to share your words as a testimonial, I’ll ask your permission first.</p>
       </div>
       <form class="contact-form" id="contact-form" action="https://formspree.io/f/xnjeowew" method="post">
-        <input type="hidden" name="_subject" value="Metta Practice question or private feedback">
+        <input type="hidden" name="_subject" value="Metta Practice review or question">
         <div class="contact-fields">
           <label for="contact-name">Name</label>
           <input id="contact-name" name="name" type="text" autocomplete="name" required>
           <label for="contact-email">Email</label>
           <input id="contact-email" name="email" type="email" autocomplete="email" required>
-          <label for="contact-question">Your question or feedback</label>
+          <label for="contact-question">Your review or question</label>
           <textarea id="contact-question" name="message" rows="7" minlength="10" required></textarea>
           <input class="form-honeypot" name="_gotcha" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
         </div>
-        <button class="button full" type="submit">Send Privately</button>
-        <p class="form-note">Private by default. No public comments or mailing list. Your email is used only to reply.</p>
+        <button class="button full" type="submit">Send Your Review</button>
+        <p class="form-note">Sent directly to Taylor. Nothing will be published without your permission. Your email is used only to reply.</p>
         <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -465,7 +465,7 @@
       <a href="press/">Press</a>
       <a href="terms/">Terms</a>
       <a href="privacy/">Privacy</a>
-      <a href="#contact">Private feedback</a>
+      <a href="#contact">Reviews</a>
     </nav>
   </div>
 </footer>
@@ -561,13 +561,13 @@
         if (!response.ok) throw new Error('Submission failed');
         contactForm.reset();
         contactStatus.className = 'form-status success';
-        contactStatus.textContent = 'Thank you. Your private note is on its way to Taylor.';
+        contactStatus.textContent = 'Thank you. Your review is on its way to Taylor.';
       }).catch(function () {
         contactStatus.className = 'form-status error';
         contactStatus.innerHTML = 'That did not send. Please try again or <a href="mailto:taylor@aifreelancer.co">email Taylor directly</a>.';
       }).finally(function () {
         submit.disabled = false;
-        submit.textContent = 'Send Privately';
+        submit.textContent = 'Send Your Review';
       });
     });
   }
