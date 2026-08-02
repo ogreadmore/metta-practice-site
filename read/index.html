@@ -5,32 +5,51 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Read Metta Practice free — complete HTML edition</title>
   <meta name="description" content="Read the complete first edition of Metta Practice by Taylor Oliphant online, free with no signup or payment required.">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f1eee7">
   <link rel="canonical" href="https://mettapractice.com/read/">
   <link rel="icon" href="../favicon.png?v=20260725c" type="image/png" sizes="64x64">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png?v=20260725c" sizes="180x180">
-  <link rel="stylesheet" href="../assets/launch.css?v=20260802b">
+  <link rel="stylesheet" href="../assets/launch.css?v=20260802h">
+  <link rel="stylesheet" href="../assets/reader.css?v=20260802a">
+  <noscript><style>.reader-page .reader-toc{position:static;width:min(100%,800px);margin:2rem auto;transform:none}.reader-toc-backdrop{display:none}</style></noscript>
 </head>
-<body class="market">
-  <a class="reader-skip" href="#book">Skip to the book</a>
-  <header class="masthead">
-    <a class="wordmark" href="../">Metta Practice</a>
+<body class="market reader-page">
+  <a class="reader-skip" href="#before-we-begin">Skip to the book</a>
+  <div class="reader-progress" aria-hidden="true"><span id="reader-progress-bar"></span></div>
+  <header class="masthead reader-masthead">
+    <div class="reader-brand-block">
+      <a class="wordmark" href="../">Metta Practice</a>
+      <span class="reader-current-chapter" id="reader-current-chapter">Title page</span>
+    </div>
     <nav aria-label="Reader navigation">
-      <a href="#contents">Contents</a>
-      <a href="../#guided-meditations">Meditations</a>
-      <a class="button small" href="../#downloads">Download free</a>
+      <button class="reader-nav-link" type="button" data-reader-toc-toggle aria-controls="contents" aria-expanded="false">Contents</button>
+      <a href="https://www.youtube.com/playlist?list=PLBLcnc85TF0M">Listen</a>
+      <a class="button small" href="../#free">Formats</a>
     </nav>
   </header>
   <main class="reader" id="book">
-    <p class="label reader-edition-label">Complete first edition · free</p>
-    <section class="titlepage">
+    <section class="titlepage" id="title-page">
+<div class="reader-cover-art"><img src="../assets/cover-800.jpg" width="800" height="1280" alt="Metta Practice book cover"></div>
+<div class="reader-title-copy">
+<p class="label reader-edition-label">Complete first edition · free</p>
 <h1>Metta Practice</h1>
 <p class="verse">The Science, History, and Art of Universal Love</p>
 <p class="quiet"><em>To Kukkuripa's dog — and in that spirit, all dogs.</em></p>
 <blockquote><p>May all beings look on me with the eye of a friend.<br>May I look on all beings with the eye of a friend.<br>May we look on one another with the eye of a friend.<br></p><p class="ledger">VĀJASANEYI SAṂHITĀ 36.18 (WHITE YAJURVEDA)</p></blockquote>
+<div class="reader-title-actions">
+  <a class="button" href="#before-we-begin">Start reading</a>
+  <a class="reader-listen-link" href="https://www.youtube.com/watch?v=w7GFH8XQQJc&amp;list=PLBLcnc85TF0M">Listen on YouTube <span aria-hidden="true">↗</span></a>
+</div>
+<p class="reader-format-note"><a href="../downloads/metta-practice-taylor-oliphant.pdf" download>PDF</a> · <a href="../downloads/metta-practice-taylor-oliphant.epub" download>EPUB</a> · no signup or payment</p>
+</div>
 </section>
-    <nav class="reader-toc" id="contents" aria-labelledby="contents-heading">
-      <h2 id="contents-heading">Contents</h2>
+    <div class="reader-toc-backdrop" data-reader-toc-close hidden></div>
+    <aside class="reader-toc" id="contents" role="dialog" aria-modal="true" aria-labelledby="contents-heading">
+      <div class="reader-toc-head">
+        <div><p class="label">Navigate the book</p><h2 id="contents-heading">Contents</h2></div>
+        <button type="button" data-reader-toc-close aria-label="Close contents">Close</button>
+      </div>
+      <nav aria-label="Book contents">
       <ol>
         <li><a href="#before-we-begin">Before We Begin</a></li>
 <li><a href="#chapter-1-why-metta-matters">Chapter 1: Why Metta Matters</a></li>
@@ -42,7 +61,8 @@
 <li><a href="#appendix-b-the-metta-sutta-in-pali-and-translation">Appendix B: The Metta Sutta in Pali and Translation</a></li>
 <li><a href="#notes">Notes</a></li>
       </ol>
-    </nav>
+      </nav>
+    </aside>
     <section class="chapter" id="before-we-begin">
 <h2>Before We Begin</h2>
 <p>Metta practice begins with a startling possibility: the mind can be trained so that love becomes its home.</p>
@@ -772,7 +792,7 @@
       <p class="label">Keep practicing</p>
       <h2>You have reached the end.</h2>
       <p>Download the book for later, listen to the audiobook, or choose a guided meditation that fits the time you have.</p>
-      <p><a class="button" href="../#downloads">Choose a free edition</a> <a class="reader-end-link" href="../#guided-meditations">Try a guided practice →</a></p>
+      <p class="reader-end-actions"><a class="button" href="../#free">Choose a free edition</a> <a class="reader-end-link" href="https://www.youtube.com/playlist?list=PLBLcnc85TF0M">Listen on YouTube →</a> <a class="reader-end-link" href="../#guided-meditations">Try a guided practice →</a></p>
     </aside>
   </main>
   <footer>
@@ -780,11 +800,125 @@
       <div><b>Metta Practice</b><p>The complete first edition<br>by Taylor Oliphant</p></div>
       <nav aria-label="Footer navigation">
         <a href="../">Home</a>
-        <a href="../#downloads">Downloads</a>
+        <a href="../#free">Downloads</a>
         <a href="../evidence/">Evidence</a>
-        <a href="../#feedback">Private feedback</a>
+        <a href="../#contact">Contact Taylor</a>
       </nav>
     </div>
   </footer>
+  <script>
+  (function () {
+    var toc = document.getElementById('contents');
+    var tocToggle = document.querySelector('[data-reader-toc-toggle]');
+    var tocBackdrop = document.querySelector('.reader-toc-backdrop');
+    var progressBar = document.getElementById('reader-progress-bar');
+    var currentChapter = document.getElementById('reader-current-chapter');
+    var chapters = Array.prototype.slice.call(document.querySelectorAll('.reader .chapter'));
+
+    if (toc) {
+      toc.setAttribute('aria-hidden', 'true');
+      toc.setAttribute('inert', '');
+    }
+
+    function setContentsOpen(open) {
+      if (!toc || !tocToggle || !tocBackdrop) return;
+      toc.classList.toggle('is-open', open);
+      toc.setAttribute('aria-hidden', open ? 'false' : 'true');
+      tocToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      tocBackdrop.hidden = !open;
+      document.body.classList.toggle('reader-toc-open', open);
+      if (open) {
+        toc.removeAttribute('inert');
+        toc.querySelector('[data-reader-toc-close]').focus();
+      } else {
+        toc.setAttribute('inert', '');
+      }
+    }
+
+    if (tocToggle) tocToggle.addEventListener('click', function () { setContentsOpen(true); });
+    document.querySelectorAll('[data-reader-toc-close]').forEach(function (control) {
+      control.addEventListener('click', function () { setContentsOpen(false); tocToggle.focus(); });
+    });
+    if (toc) toc.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        var target = document.querySelector(link.getAttribute('href'));
+        setContentsOpen(false);
+        if (target) {
+          window.setTimeout(function () {
+            var heading = target.querySelector('h2');
+            if (heading) {
+              heading.setAttribute('tabindex', '-1');
+              heading.focus({ preventScroll: true });
+            }
+          }, 0);
+        }
+      });
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && toc && toc.classList.contains('is-open')) {
+        setContentsOpen(false);
+        tocToggle.focus();
+      } else if (event.key === 'Tab' && toc && toc.classList.contains('is-open')) {
+        var focusable = toc.querySelectorAll('a[href], button:not([disabled])');
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    chapters.forEach(function (chapter, index) {
+      var nav = document.createElement('nav');
+      var previous = chapters[index - 1];
+      var next = chapters[index + 1];
+      nav.className = 'reader-chapter-nav';
+      nav.setAttribute('aria-label', 'Chapter navigation');
+      if (previous) {
+        var previousLink = document.createElement('a');
+        previousLink.href = '#' + previous.id;
+        previousLink.innerHTML = '<span>Previous</span><strong>' + previous.querySelector('h2').textContent + '</strong>';
+        nav.appendChild(previousLink);
+      } else {
+        var contentsButton = document.createElement('button');
+        contentsButton.type = 'button';
+        contentsButton.innerHTML = '<span>Navigate</span><strong>Contents</strong>';
+        contentsButton.addEventListener('click', function () { setContentsOpen(true); });
+        nav.appendChild(contentsButton);
+      }
+      if (next) {
+        var nextLink = document.createElement('a');
+        nextLink.href = '#' + next.id;
+        nextLink.className = 'next';
+        nextLink.innerHTML = '<span>Next</span><strong>' + next.querySelector('h2').textContent + '</strong>';
+        nav.appendChild(nextLink);
+      }
+      chapter.appendChild(nav);
+    });
+
+    function updateReadingState() {
+      var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      var progress = scrollable > 0 ? Math.min(100, Math.max(0, window.scrollY / scrollable * 100)) : 0;
+      if (progressBar) progressBar.style.width = progress + '%';
+
+      var activeTitle = 'Title page';
+      chapters.forEach(function (chapter) {
+        if (chapter.getBoundingClientRect().top < window.innerHeight * .38) {
+          activeTitle = chapter.querySelector('h2').textContent;
+        }
+      });
+      if (currentChapter && currentChapter.textContent !== activeTitle) currentChapter.textContent = activeTitle;
+    }
+
+    updateReadingState();
+    window.addEventListener('scroll', updateReadingState, { passive: true });
+    window.addEventListener('resize', updateReadingState);
+  })();
+  </script>
 </body>
 </html>
