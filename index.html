@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://mettapractice.com/">
 <link rel="icon" href="favicon.png?v=20260725c" type="image/png" sizes="64x64">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=20260725c" sizes="180x180">
-<link rel="stylesheet" href="assets/launch.css?v=20260802f">
+<link rel="stylesheet" href="assets/launch.css?v=20260802g">
 <meta property="og:type" content="book">
 <meta property="og:title" content="Metta Practice — Less stress. Better mood. More connection.">
 <meta property="og:description" content="One evidence-backed mental practice. Learn it tonight. Use it for life. Read the complete first edition free.">
@@ -172,7 +172,7 @@
       </div>
 
       <div class="mechanism-synthesis">
-        <blockquote>“Rehearse the response you want—until it is easier to find when it counts.”</blockquote>
+        <blockquote>“Rehearse the feeling you want—until it becomes who you are.”</blockquote>
         <div>
           <p>The book shows you how to move metta off the cushion and into the ordinary moments that shape a life.</p>
           <a class="text-link" href="read/">Read the science chapter →</a>
@@ -309,12 +309,18 @@
             <span>Collection 01</span>
             <h3>Nature Visuals</h3>
             <p>Four guided practices paired with changing natural scenery.</p>
-            <ul aria-label="Available durations"><li>1 min</li><li>2 min</li><li>5 min</li><li>10 min</li></ul>
+            <ul class="video-duration-links" aria-label="Choose a Nature Visuals meditation duration">
+              <li><a href="https://www.youtube.com/watch?v=7vANjqDO5Bs" data-video-id="7vANjqDO5Bs" data-player="nature-player" data-video-title="1-minute guided Metta meditation with nature visuals" aria-controls="nature-player" aria-current="true">1 min</a></li>
+              <li><a href="https://www.youtube.com/watch?v=fyLxwJGe9dI" data-video-id="fyLxwJGe9dI" data-player="nature-player" data-video-title="2-minute guided Metta meditation with nature visuals" aria-controls="nature-player">2 min</a></li>
+              <li><a href="https://www.youtube.com/watch?v=Fx41YjlZm18" data-video-id="Fx41YjlZm18" data-player="nature-player" data-video-title="5-minute guided Metta meditation with nature visuals" aria-controls="nature-player">5 min</a></li>
+              <li><a href="https://www.youtube.com/watch?v=aEoOE-RE80s" data-video-id="aEoOE-RE80s" data-player="nature-player" data-video-title="10-minute guided Metta meditation with nature visuals" aria-controls="nature-player">10 min</a></li>
+            </ul>
           </div>
           <div class="video-embed">
             <iframe
-              src="https://www.youtube-nocookie.com/embed/videoseries?list=PLI0qdfmSUEIk"
-              title="Guided Metta Meditations with Nature Visuals playlist"
+              id="nature-player"
+              src="https://www.youtube-nocookie.com/embed/7vANjqDO5Bs?rel=0"
+              title="1-minute guided Metta meditation with nature visuals"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin"
@@ -329,12 +335,18 @@
             <span>Collection 02</span>
             <h3>Ambient Music</h3>
             <p>Four guided practices with a spacious ambient musical background.</p>
-            <ul aria-label="Available durations"><li>1 min</li><li>2 min</li><li>5 min</li><li>10 min</li></ul>
+            <ul class="video-duration-links" aria-label="Choose an Ambient Music meditation duration">
+              <li><a href="https://www.youtube.com/watch?v=zufRboxgytg" data-video-id="zufRboxgytg" data-player="ambient-player" data-video-title="1-minute guided Metta meditation with ambient music" aria-controls="ambient-player" aria-current="true">1 min</a></li>
+              <li><a href="https://www.youtube.com/watch?v=gWOIlyawvs0" data-video-id="gWOIlyawvs0" data-player="ambient-player" data-video-title="2-minute guided Metta meditation with ambient music" aria-controls="ambient-player">2 min</a></li>
+              <li><a href="https://www.youtube.com/watch?v=jcFjpguCHcE" data-video-id="jcFjpguCHcE" data-player="ambient-player" data-video-title="5-minute guided Metta meditation with ambient music" aria-controls="ambient-player">5 min</a></li>
+              <li><a href="https://www.youtube.com/watch?v=n5AkS5bIQmg" data-video-id="n5AkS5bIQmg" data-player="ambient-player" data-video-title="10-minute guided Metta meditation with ambient music" aria-controls="ambient-player">10 min</a></li>
+            </ul>
           </div>
           <div class="video-embed">
             <iframe
-              src="https://www.youtube-nocookie.com/embed/videoseries?list=PLR5v3UYQLrA0"
-              title="Guided Metta Meditations with Ambient Music playlist"
+              id="ambient-player"
+              src="https://www.youtube-nocookie.com/embed/zufRboxgytg?rel=0"
+              title="1-minute guided Metta meditation with ambient music"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin"
@@ -430,6 +442,24 @@
       if (event.key === 'Escape') menu.removeAttribute('open');
     });
   }
+
+  document.querySelectorAll('.video-duration-links a[data-video-id]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      var player = document.getElementById(link.dataset.player);
+      if (!player) return;
+
+      event.preventDefault();
+      player.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(link.dataset.videoId) + '?rel=0';
+      player.title = link.dataset.videoTitle;
+
+      link.closest('.video-duration-links').querySelectorAll('a').forEach(function (durationLink) {
+        durationLink.removeAttribute('aria-current');
+      });
+      link.setAttribute('aria-current', 'true');
+    });
+  });
 
   var contactForm = document.getElementById('contact-form');
   var contactStatus = document.getElementById('contact-status');

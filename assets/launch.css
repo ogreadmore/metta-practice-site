@@ -785,7 +785,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   font-size: clamp(1.8rem, 3.2vw, 2.8rem);
 }
 .video-collection-copy p { max-width: 38ch; color: var(--body); }
-.video-collection-copy ul {
+.video-duration-links {
   display: flex;
   flex-wrap: wrap;
   gap: .45rem;
@@ -793,15 +793,32 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   padding: 0;
   list-style: none;
 }
-.video-collection-copy li {
-  padding: .34rem .55rem;
+.video-duration-links a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: .55rem .8rem;
   border: 1px solid var(--line);
   border-radius: 4px;
   color: var(--grey);
   font-size: .68rem;
   font-weight: 800;
   letter-spacing: .05em;
+  text-decoration: none;
   text-transform: uppercase;
+  transition: border-color .18s ease, color .18s ease, background-color .18s ease, transform .18s ease;
+}
+.video-duration-links a:hover,
+.video-duration-links a:focus-visible {
+  border-color: var(--violet);
+  color: var(--violet);
+  transform: translateY(-1px);
+}
+.video-duration-links a[aria-current="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
 }
 .video-embed {
   position: relative;
