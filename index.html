@@ -10,6 +10,8 @@
 <link rel="icon" href="favicon.png?v=20260725c" type="image/png" sizes="64x64">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=20260725c" sizes="180x180">
 <link rel="stylesheet" href="assets/launch.css?v=20260802j">
+<link rel="stylesheet" href="assets/analytics.css?v=20260802a">
+<script defer src="assets/analytics.js?v=20260802a"></script>
 <meta property="og:type" content="book">
 <meta property="og:title" content="Metta Practice — Less stress. Better mood. More connection.">
 <meta property="og:description" content="One evidence-backed mental practice. Learn it tonight. Use it for life. Read the complete first edition free.">
@@ -562,6 +564,7 @@
         contactForm.reset();
         contactStatus.className = 'form-status success';
         contactStatus.textContent = 'Thank you. Your review is on its way to Taylor.';
+        if (typeof window.mettaTrack === 'function') window.mettaTrack('metta_review_sent');
       }).catch(function () {
         contactStatus.className = 'form-status error';
         contactStatus.innerHTML = 'That did not send. Please try again or <a href="mailto:taylor@aifreelancer.co">email Taylor directly</a>.';
