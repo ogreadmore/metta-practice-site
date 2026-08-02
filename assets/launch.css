@@ -756,58 +756,81 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     radial-gradient(34% 30% at 100% 100%, rgba(0, 212, 255, .07), transparent 72%),
     var(--cream);
 }
-.practice-audio-grid {
+.video-collection-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
-.practice-audio-card {
-  display: flex;
+.video-collection-card {
+  display: grid;
   min-width: 0;
-  min-height: 350px;
-  flex-direction: column;
-  padding: clamp(1.7rem, 3.6vw, 3rem);
   border: 1px solid var(--line);
   border-radius: 10px;
   background: rgba(255, 255, 255, .94);
   box-shadow: 0 26px 70px -54px rgba(31, 14, 70, .55);
+  overflow: hidden;
 }
-.practice-audio-card > span {
+.video-collection-copy { padding: clamp(1.5rem, 3.3vw, 2.5rem); }
+.video-collection-copy > span {
   display: block;
-  margin-bottom: clamp(2.4rem, 5vw, 4rem);
+  margin-bottom: 2rem;
   color: var(--violet);
   font-size: .72rem;
   font-weight: 800;
   letter-spacing: .09em;
   text-transform: uppercase;
 }
-.practice-audio-card h3 {
+.video-collection-copy h3 {
   max-width: 14ch;
   font-size: clamp(1.8rem, 3.2vw, 2.8rem);
 }
-.practice-audio-card p { max-width: 38ch; color: var(--body); }
-.practice-audio-card audio {
-  display: block;
-  width: 100%;
-  height: 52px;
-  margin-top: auto;
-  accent-color: var(--violet);
+.video-collection-copy p { max-width: 38ch; color: var(--body); }
+.video-collection-copy ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
 }
-.practice-download {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  align-self: flex-start;
-  margin-top: .85rem;
-  padding: .65rem .85rem;
+.video-collection-copy li {
+  padding: .34rem .55rem;
   border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--white);
+  border-radius: 4px;
+  color: var(--grey);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.video-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+}
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-collection-link {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: space-between;
+  padding: .85rem clamp(1.5rem, 3.3vw, 2.5rem);
+  border-top: 1px solid var(--line);
+  color: var(--ink);
   font-size: .78rem;
   font-weight: 800;
   text-decoration: none;
 }
-.practice-download:hover { color: var(--violet); border-color: var(--violet); }
+.video-collection-link:hover { color: var(--violet); }
+.channel-link { margin: 2rem 0 0; text-align: center; }
+.channel-link a { color: var(--violet); font-size: .86rem; font-weight: 800; text-decoration: none; }
 
 .faq { background: var(--cream); }
 .faq h2 { margin-bottom: 2.8rem; }
@@ -1124,7 +1147,7 @@ footer a { color: rgba(255, 255, 255, .72); }
   .actions { align-items: stretch; flex-direction: column; }
   .actions .button, .actions .btn { width: 100%; }
   .text-button { justify-content: center; min-height: 42px; }
-  .benefit-grid, .mechanism-proof-grid, .evidence-grid, .practice-audio-grid { grid-template-columns: 1fr; }
+  .benefit-grid, .mechanism-proof-grid, .evidence-grid, .video-collection-grid { grid-template-columns: 1fr; }
   .benefit-card { min-height: 320px; }
   .intro-video-note { grid-template-columns: 1fr; gap: .55rem; }
   .mechanism-proof { padding: 1.6rem; }
@@ -1134,8 +1157,8 @@ footer a { color: rgba(255, 255, 255, .72); }
   footer nav { justify-content: flex-start; }
   .contact-form { padding: 1.25rem; }
   .free-file-links { grid-template-columns: 1fr; }
-  .practice-audio-card { min-height: 320px; padding: 1.5rem; }
-  .practice-download { width: 100%; justify-content: center; }
+  .video-collection-copy { padding: 1.5rem; }
+  .video-collection-link { padding-inline: 1.5rem; }
   .reader { width: min(calc(100% - 30px), 760px); font-size: 16px; }
   .reader .titlepage { padding-top: 2rem; }
   .reader-end-card .button { width: 100%; text-align: center; }
