@@ -9,8 +9,8 @@
   <link rel="canonical" href="https://mettapractice.com/read/">
   <link rel="icon" href="../favicon.png?v=20260725c" type="image/png" sizes="64x64">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png?v=20260725c" sizes="180x180">
-  <link rel="stylesheet" href="../assets/launch.css?v=20260802h">
-  <link rel="stylesheet" href="../assets/reader.css?v=20260802a">
+  <link rel="stylesheet" href="../assets/launch.css?v=20260802j">
+  <link rel="stylesheet" href="../assets/reader.css?v=20260802b">
   <noscript><style>.reader-page .reader-toc{position:static;width:min(100%,800px);margin:2rem auto;transform:none}.reader-toc-backdrop{display:none}</style></noscript>
 </head>
 <body class="market reader-page">
@@ -28,6 +28,18 @@
     </nav>
   </header>
   <main class="reader" id="book">
+    <section class="ebook-stage" id="ebook-stage" aria-label="Paginated book reader" hidden>
+      <div class="ebook-page-window" id="ebook-page-window" tabindex="0" aria-label="Book page">
+        <div class="ebook-page-clip" id="ebook-page-clip">
+          <div class="ebook-book" id="ebook-book"></div>
+        </div>
+      </div>
+      <nav class="ebook-controls" aria-label="Page navigation">
+        <button type="button" id="ebook-previous" aria-label="Previous page"><span aria-hidden="true">←</span> Previous</button>
+        <p class="ebook-page-count" aria-live="polite"><span id="ebook-current-page">1</span> <span aria-hidden="true">/</span><span class="sr-only">of</span> <span id="ebook-total-pages">1</span></p>
+        <button type="button" id="ebook-next" aria-label="Next page">Next <span aria-hidden="true">→</span></button>
+      </nav>
+    </section>
     <section class="titlepage" id="title-page">
 <div class="reader-cover-art"><img src="../assets/cover-800.jpg" width="800" height="1280" alt="Metta Practice book cover"></div>
 <div class="reader-title-copy">
@@ -814,6 +826,19 @@
     var progressBar = document.getElementById('reader-progress-bar');
     var currentChapter = document.getElementById('reader-current-chapter');
     var chapters = Array.prototype.slice.call(document.querySelectorAll('.reader .chapter'));
+    var ebookStage = document.getElementById('ebook-stage');
+    var ebookWindow = document.getElementById('ebook-page-window');
+    var ebookClip = document.getElementById('ebook-page-clip');
+    var ebookBook = document.getElementById('ebook-book');
+    var ebookPrevious = document.getElementById('ebook-previous');
+    var ebookNext = document.getElementById('ebook-next');
+    var ebookCurrentPage = document.getElementById('ebook-current-page');
+    var ebookTotalPages = document.getElementById('ebook-total-pages');
+    var paginatedReady = false;
+    var currentPageIndex = 0;
+    var totalPageCount = 1;
+    var pageStride = 1;
+    var resizeTimer;
 
     if (toc) {
       toc.setAttribute('aria-hidden', 'true');
@@ -840,9 +865,13 @@
       control.addEventListener('click', function () { setContentsOpen(false); tocToggle.focus(); });
     });
     if (toc) toc.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
+      link.addEventListener('click', function (event) {
         var target = document.querySelector(link.getAttribute('href'));
         setContentsOpen(false);
+        if (paginatedReady && target) {
+          event.preventDefault();
+          goToReaderElement(target, true);
+        }
         if (target) {
           window.setTimeout(function () {
             var heading = target.querySelector('h2');
@@ -901,23 +930,199 @@
       chapter.appendChild(nav);
     });
 
+    var chapterPageStarts = [];
+    var readerStorageKey = 'metta-ebook-progress-20260802';
+
+    function clampPage(page) {
+      return Math.min(totalPageCount - 1, Math.max(0, page));
+    }
+
+    function readSavedProgress() {
+      try {
+        var saved = Number(window.localStorage.getItem(readerStorageKey));
+        return Number.isFinite(saved) ? Math.min(1, Math.max(0, saved)) : 0;
+      } catch (error) {
+        return 0;
+      }
+    }
+
+    function saveReaderProgress() {
+      var progress = totalPageCount > 1 ? currentPageIndex / (totalPageCount - 1) : 0;
+      try { window.localStorage.setItem(readerStorageKey, String(progress)); } catch (error) {}
+    }
+
+    function absoluteReaderLeft(element) {
+      var pageLeft = ebookClip.getBoundingClientRect().left;
+      return element.getBoundingClientRect().left - pageLeft + currentPageIndex * pageStride;
+    }
+
+    function pageForReaderElement(element) {
+      return clampPage(Math.floor((absoluteReaderLeft(element) + 2) / pageStride));
+    }
+
+    function activeChapterForPage(page) {
+      var activeTitle = 'Title page';
+      chapterPageStarts.forEach(function (chapterStart, index) {
+        if (chapterStart <= page) activeTitle = chapters[index].querySelector('h2').textContent;
+      });
+      return activeTitle;
+    }
+
+    function renderReaderPage(shouldSave) {
+      if (!paginatedReady) return;
+      currentPageIndex = clampPage(currentPageIndex);
+      ebookBook.style.transform = 'translate3d(' + (-currentPageIndex * pageStride) + 'px, 0, 0)';
+      ebookCurrentPage.textContent = String(currentPageIndex + 1);
+      ebookTotalPages.textContent = String(totalPageCount);
+      ebookPrevious.disabled = currentPageIndex === 0;
+      ebookNext.disabled = currentPageIndex === totalPageCount - 1;
+
+      var progress = totalPageCount > 1 ? currentPageIndex / (totalPageCount - 1) * 100 : 0;
+      if (progressBar) progressBar.style.width = progress + '%';
+
+      var activeTitle = activeChapterForPage(currentPageIndex);
+      if (currentChapter) currentChapter.textContent = activeTitle;
+      ebookWindow.setAttribute('aria-label', 'Page ' + (currentPageIndex + 1) + ' of ' + totalPageCount + '. ' + activeTitle);
+      if (shouldSave !== false) saveReaderProgress();
+    }
+
+    function goToReaderPage(page) {
+      currentPageIndex = clampPage(page);
+      renderReaderPage(true);
+    }
+
+    function goToReaderElement(element, updateHash) {
+      if (!paginatedReady || !element) return;
+      goToReaderPage(pageForReaderElement(element));
+      if (updateHash && element.id) history.replaceState(null, '', '#' + element.id);
+    }
+
+    function measurePagination(preserveProgress, preferredProgress) {
+      if (!paginatedReady) return;
+      var oldProgress = totalPageCount > 1 ? currentPageIndex / (totalPageCount - 1) : 0;
+      var targetProgress = typeof preferredProgress === 'number' ? preferredProgress : oldProgress;
+      var pageWidth = Math.max(240, Math.floor(ebookClip.clientWidth));
+      var pageHeight = Math.max(260, Math.floor(ebookClip.clientHeight));
+
+      ebookBook.classList.add('is-measuring');
+      currentPageIndex = 0;
+      ebookBook.style.transform = 'translate3d(0, 0, 0)';
+      ebookBook.style.width = pageWidth + 'px';
+      ebookBook.style.height = pageHeight + 'px';
+      ebookBook.style.columnWidth = pageWidth + 'px';
+
+      var columnGap = parseFloat(window.getComputedStyle(ebookBook).columnGap) || 48;
+      pageStride = pageWidth + columnGap;
+      totalPageCount = Math.max(1, Math.round((ebookBook.scrollWidth + columnGap) / pageStride));
+      chapterPageStarts = chapters.map(function (chapter) { return pageForReaderElement(chapter); });
+
+      currentPageIndex = preserveProgress || typeof preferredProgress === 'number'
+        ? Math.round(targetProgress * (totalPageCount - 1))
+        : 0;
+      renderReaderPage(false);
+      window.requestAnimationFrame(function () { ebookBook.classList.remove('is-measuring'); });
+    }
+
+    function initializePagination() {
+      if (!ebookStage || !ebookWindow || !ebookClip || !ebookBook || !window.CSS || !CSS.supports('column-width', '20rem')) return;
+
+      var titlePage = document.getElementById('title-page');
+      var endCard = document.querySelector('.reader-end-card');
+      [titlePage].concat(chapters).concat([endCard]).forEach(function (section) {
+        if (section) ebookBook.appendChild(section);
+      });
+
+      document.body.classList.add('is-paginated');
+      ebookStage.hidden = false;
+      paginatedReady = true;
+
+      window.requestAnimationFrame(function () {
+        var savedProgress = readSavedProgress();
+        measurePagination(false, savedProgress);
+        var initialTarget = window.location.hash && document.querySelector(window.location.hash);
+        if (initialTarget) goToReaderElement(initialTarget, false);
+      });
+
+      ebookPrevious.addEventListener('click', function () { goToReaderPage(currentPageIndex - 1); });
+      ebookNext.addEventListener('click', function () { goToReaderPage(currentPageIndex + 1); });
+
+      ebookBook.addEventListener('click', function (event) {
+        var link = event.target.closest('a[href^="#"]');
+        if (!link) return;
+        var target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        event.preventDefault();
+        goToReaderElement(target, true);
+      });
+
+      var skipLink = document.querySelector('.reader-skip');
+      if (skipLink) skipLink.addEventListener('click', function (event) {
+        var target = document.querySelector(skipLink.getAttribute('href'));
+        if (!target) return;
+        event.preventDefault();
+        goToReaderElement(target, true);
+        ebookWindow.focus();
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (!paginatedReady || (toc && toc.classList.contains('is-open'))) return;
+        if (/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName) || event.target.isContentEditable) return;
+        if (event.key === 'ArrowRight' || event.key === 'PageDown') {
+          event.preventDefault();
+          goToReaderPage(currentPageIndex + 1);
+        } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+          event.preventDefault();
+          goToReaderPage(currentPageIndex - 1);
+        } else if (event.key === 'Home') {
+          event.preventDefault();
+          goToReaderPage(0);
+        } else if (event.key === 'End') {
+          event.preventDefault();
+          goToReaderPage(totalPageCount - 1);
+        }
+      });
+
+      var swipeStartX = 0;
+      ebookWindow.addEventListener('pointerdown', function (event) {
+        if (event.pointerType === 'touch' || event.pointerType === 'pen') swipeStartX = event.clientX;
+      });
+      ebookWindow.addEventListener('pointerup', function (event) {
+        if (!(event.pointerType === 'touch' || event.pointerType === 'pen')) return;
+        var distance = event.clientX - swipeStartX;
+        if (Math.abs(distance) < 48) return;
+        goToReaderPage(currentPageIndex + (distance < 0 ? 1 : -1));
+      });
+    }
+
     function updateReadingState() {
+      if (paginatedReady) return;
       var scrollable = document.documentElement.scrollHeight - window.innerHeight;
       var progress = scrollable > 0 ? Math.min(100, Math.max(0, window.scrollY / scrollable * 100)) : 0;
       if (progressBar) progressBar.style.width = progress + '%';
 
       var activeTitle = 'Title page';
       chapters.forEach(function (chapter) {
-        if (chapter.getBoundingClientRect().top < window.innerHeight * .38) {
-          activeTitle = chapter.querySelector('h2').textContent;
-        }
+        if (chapter.getBoundingClientRect().top < window.innerHeight * .38) activeTitle = chapter.querySelector('h2').textContent;
       });
-      if (currentChapter && currentChapter.textContent !== activeTitle) currentChapter.textContent = activeTitle;
+      if (currentChapter) currentChapter.textContent = activeTitle;
     }
 
+    initializePagination();
     updateReadingState();
     window.addEventListener('scroll', updateReadingState, { passive: true });
-    window.addEventListener('resize', updateReadingState);
+    window.addEventListener('resize', function () {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(function () {
+        if (paginatedReady) measurePagination(true);
+        else updateReadingState();
+      }, 120);
+    });
+    window.addEventListener('load', function () {
+      if (paginatedReady) measurePagination(true);
+    });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { if (paginatedReady) measurePagination(true); });
+    }
   })();
   </script>
 </body>
