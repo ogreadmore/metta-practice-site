@@ -10,7 +10,7 @@
   <link rel="icon" href="../favicon.png?v=20260725c" type="image/png" sizes="64x64">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png?v=20260725c" sizes="180x180">
   <link rel="stylesheet" href="../assets/launch.css?v=20260802j">
-  <link rel="stylesheet" href="../assets/reader.css?v=20260802b">
+  <link rel="stylesheet" href="../assets/reader.css?v=20260802c">
   <noscript><style>.reader-page .reader-toc{position:static;width:min(100%,800px);margin:2rem auto;transform:none}.reader-toc-backdrop{display:none}</style></noscript>
 </head>
 <body class="market reader-page">
@@ -976,6 +976,7 @@
       ebookTotalPages.textContent = String(totalPageCount);
       ebookPrevious.disabled = currentPageIndex === 0;
       ebookNext.disabled = currentPageIndex === totalPageCount - 1;
+      ebookWindow.classList.toggle('is-cover-page', currentPageIndex === 0);
 
       var progress = totalPageCount > 1 ? currentPageIndex / (totalPageCount - 1) * 100 : 0;
       if (progressBar) progressBar.style.width = progress + '%';
@@ -1003,6 +1004,7 @@
       var targetProgress = typeof preferredProgress === 'number' ? preferredProgress : oldProgress;
       var pageWidth = Math.max(240, Math.floor(ebookClip.clientWidth));
       var pageHeight = Math.max(260, Math.floor(ebookClip.clientHeight));
+      ebookWindow.style.setProperty('--ebook-page-height', pageHeight + 'px');
 
       ebookBook.classList.add('is-measuring');
       currentPageIndex = 0;

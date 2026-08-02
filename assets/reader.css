@@ -475,6 +475,14 @@ html { scroll-padding-top: 92px; }
   pointer-events: none;
 }
 
+.ebook-page-window.is-cover-page {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.ebook-page-window.is-cover-page::after { display: none; }
+
 .ebook-page-window:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
 
 .ebook-page-clip {
@@ -504,15 +512,25 @@ html { scroll-padding-top: 92px; }
 }
 
 .reader-page.is-paginated .reader-cover-art {
+  display: grid;
   float: none;
-  width: min(58%, 200px);
-  margin: .5rem auto 0;
+  width: 100%;
+  margin: 0;
+  padding: .25rem 0;
+  place-items: center;
   break-after: column;
   break-inside: avoid-column;
 }
 
 .reader-page.is-paginated .reader-cover-art::before { display: none; }
-.reader-page.is-paginated .reader-cover-art img { box-shadow: -7px 16px 36px -18px rgba(32, 20, 5, .45); transform: none; }
+.reader-page.is-paginated .reader-cover-art img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(var(--ebook-page-height, 640px) - .5rem);
+  box-shadow: -14px 28px 60px -24px rgba(32, 20, 5, .52);
+  transform: none;
+}
 .reader-page.is-paginated .reader-title-copy { max-width: none; }
 .reader-page.is-paginated .reader-edition-label { margin-bottom: 1.1rem; }
 
@@ -643,7 +661,7 @@ html { scroll-padding-top: 92px; }
     border-radius: 2px 7px 7px 2px;
   }
   .ebook-book { column-gap: 24px; }
-  .reader-page.is-paginated .reader-cover-art { width: min(58%, 165px); margin: .25rem auto 0; }
+  .reader-page.is-paginated .reader-cover-art { width: 100%; margin: 0; padding: .15rem 0; }
   .reader-page.is-paginated .titlepage h1 { font-size: clamp(3rem, 14vw, 4.7rem); }
   .reader-page.is-paginated .chapter { padding: 0; }
   .reader-page.is-paginated .chapter h2 { font-size: clamp(2.45rem, 11vw, 3.7rem); }
