@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://mettapractice.com/">
 <link rel="icon" href="favicon.png?v=20260725c" type="image/png" sizes="64x64">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=20260725c" sizes="180x180">
-<link rel="stylesheet" href="assets/launch.css?v=20260802h">
+<link rel="stylesheet" href="assets/launch.css?v=20260802i">
 <meta property="og:type" content="book">
 <meta property="og:title" content="Metta Practice — Less stress. Better mood. More connection.">
 <meta property="og:description" content="One evidence-backed mental practice. Learn it tonight. Use it for life. Read the complete first edition free.">
@@ -45,6 +45,7 @@
     <a href="#method">How it works</a>
     <a href="#science">Evidence</a>
     <a href="#free">Read free</a>
+    <a href="#contact">Feedback</a>
     <a href="#story">About</a>
     <a class="button small nav-buy" href="#free"><span class="nav-buy-full">Get the book — free</span><span class="nav-buy-short">Free book</span></a>
     <details class="mobile-menu">
@@ -56,12 +57,29 @@
         <a href="read/">Read the complete book</a>
         <a href="#free">Free downloads</a>
         <a href="#guided-meditations">Guided meditations</a>
+        <a href="#contact">Private feedback</a>
         <a href="#story">About Taylor</a>
-        <a href="#contact">Contact Taylor</a>
       </div>
     </details>
   </nav>
 </header>
+
+<dialog class="welcome-dialog" id="welcome-dialog" aria-labelledby="welcome-title">
+  <form method="dialog" class="welcome-close-form">
+    <button type="submit" aria-label="Close welcome message">×</button>
+  </form>
+  <div class="welcome-dialog-body">
+    <p class="eyebrow">Welcome · everything is free</p>
+    <h2 id="welcome-title">Thank you for finding Metta Practice.</h2>
+    <p>The complete book, audiobook, and guided meditations are free—no signup or payment required. If you want help with the practice, send me a note. I’d be glad to help.</p>
+    <p>I’m sharing this edition because I want to learn what actually happens when people use it. If you read or practice, I’d be grateful for an honest private review: what helped, what didn’t, what you tried, and what changed.</p>
+    <div class="welcome-dialog-actions">
+      <a class="button" href="read/" data-welcome-action>Read the free book</a>
+      <a class="button secondary" href="#contact" data-welcome-action>Share private feedback</a>
+    </div>
+    <p class="welcome-dialog-note">No need to be positive. No public comments. No mailing list.</p>
+  </div>
+</dialog>
 
 <main>
   <section class="hero">
@@ -414,24 +432,25 @@
   <section class="footer-contact" aria-labelledby="contact-title">
     <div class="shell contact-grid">
       <div class="contact-copy">
-        <p class="eyebrow">Ask Taylor</p>
-        <h2 id="contact-title">Questions about metta? Ask me.</h2>
-        <p>If you have a question about the book or about bringing metta into your life, send me a note. I read every message and reply when I can.</p>
-        <p class="contact-boundary">For questions about the practice—not medical, mental-health, or crisis care.</p>
+        <p class="eyebrow">Questions + private feedback</p>
+        <h2 id="contact-title">Tell me what happened when you tried it.</h2>
+        <p>If you read the book or try a practice, I’d value an honest private review: what you practiced, experienced, disliked, misunderstood, or changed. It does not need to be positive.</p>
+        <div class="feedback-request"><strong>Your experience is the useful part.</strong><span>Specific criticism, confusion, and things that did not work are every bit as welcome as praise.</span></div>
+        <p class="contact-boundary">Questions are welcome too—I read every message and reply when I can. This is not medical, mental-health, or crisis care.</p>
       </div>
       <form class="contact-form" id="contact-form" action="https://formspree.io/f/xnjeowew" method="post">
-        <input type="hidden" name="_subject" value="Metta Practice website question">
+        <input type="hidden" name="_subject" value="Metta Practice question or private feedback">
         <div class="contact-fields">
           <label for="contact-name">Name</label>
           <input id="contact-name" name="name" type="text" autocomplete="name" required>
           <label for="contact-email">Email</label>
           <input id="contact-email" name="email" type="email" autocomplete="email" required>
-          <label for="contact-question">Your question</label>
+          <label for="contact-question">Your question or feedback</label>
           <textarea id="contact-question" name="message" rows="7" minlength="10" required></textarea>
           <input class="form-honeypot" name="_gotcha" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
         </div>
-        <button class="button full" type="submit">Send Your Question</button>
-        <p class="form-note">No mailing list. Your email is used only to reply.</p>
+        <button class="button full" type="submit">Send Privately</button>
+        <p class="form-note">Private by default. No public comments or mailing list. Your email is used only to reply.</p>
         <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -446,7 +465,7 @@
       <a href="press/">Press</a>
       <a href="terms/">Terms</a>
       <a href="privacy/">Privacy</a>
-      <a href="#contact">Contact Taylor</a>
+      <a href="#contact">Private feedback</a>
     </nav>
   </div>
 </footer>
@@ -462,6 +481,44 @@
     });
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape') menu.removeAttribute('open');
+    });
+  }
+
+  var welcomeDialog = document.getElementById('welcome-dialog');
+  if (welcomeDialog && typeof welcomeDialog.showModal === 'function') {
+    var welcomeStorageKey = 'metta-welcome-review-20260802';
+    var welcomeShown = false;
+    var welcomeSeen = false;
+
+    try {
+      welcomeSeen = window.localStorage.getItem(welcomeStorageKey) === 'seen';
+    } catch (error) {
+      welcomeSeen = false;
+    }
+
+    function rememberWelcome() {
+      try { window.localStorage.setItem(welcomeStorageKey, 'seen'); } catch (error) {}
+    }
+
+    function showWelcome() {
+      if (welcomeSeen || welcomeShown || document.visibilityState !== 'visible') return;
+      welcomeShown = true;
+      window.removeEventListener('scroll', showWelcomeOnScroll);
+      welcomeDialog.showModal();
+    }
+
+    function showWelcomeOnScroll() {
+      if (window.scrollY > Math.max(500, window.innerHeight * .65)) showWelcome();
+    }
+
+    if (!welcomeSeen) {
+      window.setTimeout(showWelcome, 6500);
+      window.addEventListener('scroll', showWelcomeOnScroll, { passive: true });
+    }
+
+    welcomeDialog.addEventListener('close', rememberWelcome);
+    welcomeDialog.querySelectorAll('[data-welcome-action]').forEach(function (link) {
+      link.addEventListener('click', function () { welcomeDialog.close(); });
     });
   }
 
@@ -504,13 +561,13 @@
         if (!response.ok) throw new Error('Submission failed');
         contactForm.reset();
         contactStatus.className = 'form-status success';
-        contactStatus.textContent = 'Thank you. Your question is on its way to Taylor.';
+        contactStatus.textContent = 'Thank you. Your private note is on its way to Taylor.';
       }).catch(function () {
         contactStatus.className = 'form-status error';
         contactStatus.innerHTML = 'That did not send. Please try again or <a href="mailto:taylor@aifreelancer.co">email Taylor directly</a>.';
       }).finally(function () {
         submit.disabled = false;
-        submit.textContent = 'Send Your Question';
+        submit.textContent = 'Send Privately';
       });
     });
   }

@@ -877,6 +877,71 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .channel-link { margin: 2rem 0 0; text-align: center; }
 .channel-link a { color: var(--violet); font-size: .86rem; font-weight: 800; text-decoration: none; }
 
+.welcome-dialog {
+  width: min(calc(100% - 30px), 760px);
+  max-height: min(90vh, 780px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: 18px;
+  color: var(--ink);
+  background:
+    radial-gradient(46% 40% at 0 0, rgba(255, 45, 170, .1), transparent 70%),
+    radial-gradient(46% 44% at 100% 100%, rgba(0, 212, 255, .1), transparent 70%),
+    var(--white);
+  box-shadow: 0 40px 120px -24px rgba(17, 10, 30, .5);
+}
+.welcome-dialog::backdrop {
+  background: rgba(9, 7, 12, .6);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+}
+.welcome-close-form {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  right: 1rem;
+  margin: 0;
+}
+.welcome-close-form button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, .88);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.welcome-dialog-body { padding: clamp(1.75rem, 4.5vw, 3.25rem); }
+.welcome-dialog h2 {
+  max-width: 13ch;
+  margin-right: 2.5rem;
+  font-size: clamp(2.35rem, 4.5vw, 3.75rem);
+}
+.welcome-dialog-body > p:not(.eyebrow, .welcome-dialog-note) {
+  max-width: 57ch;
+  color: var(--body);
+  font-size: clamp(.95rem, 1.35vw, 1.04rem);
+}
+.welcome-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-top: 1.5rem;
+}
+.welcome-dialog-note {
+  margin: .9rem 0 0;
+  color: var(--grey);
+  font-size: .76rem;
+  font-weight: 700;
+}
+
 .faq { background: var(--cream); }
 .faq h2 { margin-bottom: 2.8rem; }
 .faq details { border-top: 1px solid var(--line); }
@@ -915,6 +980,19 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   color: var(--grey);
   font-size: .8rem;
 }
+.feedback-request {
+  display: grid;
+  gap: .45rem;
+  max-width: 34rem;
+  margin-top: 2rem;
+  padding: 1.2rem 1.25rem;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--violet);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .72);
+}
+.feedback-request strong { color: var(--ink); font-size: .84rem; }
+.feedback-request span { color: var(--body); font-size: .82rem; line-height: 1.5; }
 .contact-form {
   padding: clamp(1.5rem, 3.5vw, 2.8rem);
   border: 1px solid var(--line);
@@ -1213,6 +1291,9 @@ footer a { color: rgba(255, 255, 255, .72); }
   .reader .titlepage { padding-top: 2rem; }
   .reader-end-card .button { width: 100%; text-align: center; }
   .reader-end-link { margin-left: 0; }
+  .welcome-dialog-actions { align-items: stretch; flex-direction: column; }
+  .welcome-dialog-actions .button { width: 100%; }
+  .welcome-dialog h2 { margin-right: 1.7rem; }
 }
 
 .practice-entry {
