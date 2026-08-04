@@ -450,7 +450,7 @@
           <textarea id="contact-question" name="message" rows="7" minlength="10" required></textarea>
           <input class="form-honeypot" name="_gotcha" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
         </div>
-        <button class="button full" type="submit">Send Your Review</button>
+        <button class="button full" type="submit">Send</button>
         <p class="form-note">Sent directly to Taylor. Nothing will be published without your permission. Your email is used only to reply.</p>
         <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
       </form>
@@ -569,7 +569,7 @@
         contactStatus.innerHTML = 'That did not send. Please try again or <a href="mailto:taylor@aifreelancer.co">email Taylor directly</a>.';
       }).finally(function () {
         submit.disabled = false;
-        submit.textContent = 'Send Your Review';
+        submit.textContent = 'Send';
       });
     });
   }
